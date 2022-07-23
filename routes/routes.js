@@ -1,6 +1,25 @@
 const express = require("express");
 const WebUser = require("../model/WebUser");
+const PressRelease = require("../model/Committees/Internal/PressRelease");
 const router = express.Router();
+
+// Get the press release routes
+router.get("/Committees/Internal/PressRelease", async (req, res) => {
+  try {
+    const PressRelease = await PressRelease.find();
+    res.send(PressRelease);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+// router.post("/Committees/Internal/PressRelease", async (req, res) => {
+//   try {
+//     const PressReleaseCard = new
+//   } catch (error) {
+//     res.send(error);
+//   }
+// });
 
 // Get all web users
 router.get("/webUsers", async (req, res) => {

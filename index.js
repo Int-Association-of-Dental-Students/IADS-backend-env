@@ -28,6 +28,7 @@ const connectDB = async () => {
       res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
       next();
     });
+    app.use(express.json());
     app.use("/api", routes);
   } catch (err) {
     console.log(err);
