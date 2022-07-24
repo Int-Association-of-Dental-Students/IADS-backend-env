@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const pressReleaseSchema = new Schema({
   title: String,
-  date: Date.UTC,
+  date: Date,
   image: String,
   description: String,
   link: String,

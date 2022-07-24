@@ -5,21 +5,29 @@ const router = express.Router();
 
 // Get the press release routes
 router.get("/Committees/Internal/PressRelease", async (req, res) => {
+  console.log("PressRelease");
+
   try {
-    const PressRelease = await PressRelease.find();
-    res.send(PressRelease);
+    const pressReleasex = await PressRelease.find();
+
+    res.send(pressReleasex);
   } catch (error) {
     res.send(error);
   }
 });
 
-// router.post("/Committees/Internal/PressRelease", async (req, res) => {
-//   try {
-//     const PressReleaseCard = new
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
+// Add Press Release Card
+router.post("/Committees/Internal/PressRelease", async (req, res) => {
+  try {
+    const pressReleaseCard = new PressReleaseCard({
+      title: req.body.title,
+    });
+    await pressReleaseCard.save();
+    res.send(pressReleaseCard);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 // Get all web users
 router.get("/webUsers", async (req, res) => {
