@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const routes = require("./routes/routes");
+const PublicationRoute = require("./routes/Committees/SCORE/PublicationsRoute");
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -28,8 +29,10 @@ const connectDB = async () => {
       res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
       next();
     });
+
     app.use(express.json());
     app.use("/api", routes);
+    app.use("/api", PublicationRoute);
   } catch (err) {
     console.log(err);
   }
