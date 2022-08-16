@@ -3,6 +3,13 @@ const WebUser = require("../model/WebUser");
 const PressRelease = require("../model/Committees/Internal/PressRelease");
 const router = express.Router();
 
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const HttpError = require("../middleware/http-error");
+const checkAuth = require("../middleware/check-auth");
+
+const OrganizationalMember = require("../model/OrganizationalMember");
+
 // Get the press release routes
 router.get("/Committees/Internal/PressRelease", async (req, res) => {
   console.log("PressRelease");
@@ -69,5 +76,10 @@ router.post("/webUsers", async (req, res) => {
     console.log(err);
   }
 });
+
+
+
+
+
 
 module.exports = router;
