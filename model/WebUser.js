@@ -19,6 +19,7 @@ const WebUserSchema = new Schema({
   iadsMember: Boolean,
   iadsPosition: String,
   iadsEmail: String,
+  validation: Boolean
 
 });
 

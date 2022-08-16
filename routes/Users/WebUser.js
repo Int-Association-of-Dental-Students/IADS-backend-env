@@ -50,6 +50,8 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/signup", async (req, res, next) => {
+
+console.log(req.body.data)
   let { username,
     fullName,
     email,
@@ -65,13 +67,16 @@ router.post("/signup", async (req, res, next) => {
     iadsEmployed,
     iadsMember,
     iadsPosition,
-    iadsEmail } = req.body;
+    iadsEmail } = req.body.data;
 
-  iadsEmail = iadsEmail.toLowerCase();
-  email = email.toLowerCase();
+
+  if (iadsEmail)
+    iadsEmail = iadsEmail.toLowerCase();
+  if (email)
+    email = email.toLowerCase();
 
   let existingUsers = [];
-
+  console.log('1')
   try {
     existingUsers.push(
       await WebUser.findOne({
@@ -94,15 +99,17 @@ router.post("/signup", async (req, res, next) => {
   }
 
   existingUsers = existingUsers.filter((item) => item !== null);
-
-  if (existingUsers.length) {
-    console.log(existingUsers)
+  console.log(username)
+  console.log(existingUsers)
+  if (existingUsers.length>0) {
+    // console.log(existingUsers)
     const error = new HttpError(
-      "Email already exist already, please try again.",
+      "Email or username already exist already, please try again.",
       422
     );
     return next(error);
   }
+  console.log('2')
 
   let createdUser;
   let hashedPassword;
@@ -121,6 +128,7 @@ router.post("/signup", async (req, res, next) => {
     return next(error);
   }
 
+  console.log('3')
 
   try {
     createdUser = new WebUser({
@@ -140,6 +148,7 @@ router.post("/signup", async (req, res, next) => {
       iadsMember,
       iadsPosition,
       iadsEmail,
+      validation: false
 
     });
     await createdUser.save();
@@ -147,6 +156,9 @@ router.post("/signup", async (req, res, next) => {
     const error = new HttpError("Creating user failed, please try again.", 500);
     return next(error);
   }
+
+  console.log('4')
+
 
   let token;
   try {
@@ -156,6 +168,7 @@ router.post("/signup", async (req, res, next) => {
     const error = new HttpError("Creating user failed, please try again.", 500);
     return next(error);
   }
+  console.log('5')
 
   res.status(201).json({ user: createdUser, token: token });
 });
@@ -198,6 +211,16 @@ router.post("/login", async (req, res, next) => {
       );
       return next(error);
     }
+
+
+    if (!existingUser.validation) {
+      const error = new HttpError(
+        "Pending approval, could not log you in.",
+        401
+      );
+      return next(error);
+    }
+    
   }
 
   catch (err) {
