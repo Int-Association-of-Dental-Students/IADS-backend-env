@@ -1,6 +1,7 @@
 const express = require("express");
 const Publication = require("../../../model/Committees/SCORE/Publication");
 const router = express.Router();
+const HttpError=require("../../../middleware/http-error")
 
 // Post publications card
 router.post("/Committees/SCORE/Publications", async (req, res, next) => {

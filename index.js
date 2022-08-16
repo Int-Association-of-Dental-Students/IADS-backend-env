@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const routes = require("./routes/routes");
+const webUserRoutes = require("./routes/Users/WebUser");
 const PublicationRoute = require("./routes/Committees/SCORE/PublicationsRoute");
 
 // Connect to MongoDB
@@ -32,6 +33,8 @@ const connectDB = async () => {
 
     app.use(express.json());
     app.use("/api", routes);
+    app.use("/api/WebUsers", webUserRoutes);
+    
     app.use("/api", PublicationRoute);
   } catch (err) {
     console.log(err);

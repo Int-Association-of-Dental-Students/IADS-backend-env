@@ -11,6 +11,7 @@ const orgMemberSchema = new Schema({
   membershipStartDate: Date,
   membershipUpdateDate: Date,
   assiciationEmail: String,
+  password: String,
 
   delegate1: {
     name: String,
@@ -24,7 +25,7 @@ const orgMemberSchema = new Schema({
     phone: String,
   },
 
-  paymentStatus: bool,
+  paymentStatus: Boolean,
 });
 
 module.exports = mongoose.model("OrgMember", orgMemberSchema);

@@ -8,16 +8,21 @@ const WebUserSchema = new Schema({
   gender: String,
   country: String,
   phone: String,
+  password: String,
 
   uni: String,
   association: String,
   yearsOfStudy: Number,
   delegate: String,
   gradYear: Number,
-  iadsEmployed: String,
-  iadsMember: String,
+  iadsEmployed: Boolean,
+  iadsMember: Boolean,
   iadsPosition: String,
   iadsEmail: String,
+
 });
+
+
+//vendor: { type: mongoose.Types.ObjectId, ref: "Vendor" },
 
 module.exports = mongoose.model("WebUser", WebUserSchema);
