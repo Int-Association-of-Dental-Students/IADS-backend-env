@@ -2,11 +2,10 @@ const express = require("express");
 const WebUser = require("../../model/WebUser");
 const router = express.Router();
 
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const HttpError = require("../../middleware/http-error");
 const checkAuth = require("../../middleware/check-auth");
-
 
 // Get all web users
 router.get("/", async (req, res) => {
@@ -50,9 +49,9 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/signup", async (req, res, next) => {
-
-console.log(req.body.data)
-  let { username,
+  console.log(req.body.data);
+  let {
+    username,
     fullName,
     email,
     gender,
@@ -67,16 +66,14 @@ console.log(req.body.data)
     iadsEmployed,
     iadsMember,
     iadsPosition,
-    iadsEmail } = req.body.data;
+    iadsEmail,
+  } = req.body.data;
 
-
-  if (iadsEmail)
-    iadsEmail = iadsEmail.toLowerCase();
-  if (email)
-    email = email.toLowerCase();
+  if (iadsEmail) iadsEmail = iadsEmail.toLowerCase();
+  if (email) email = email.toLowerCase();
 
   let existingUsers = [];
-  console.log('1')
+  console.log("1");
   try {
     existingUsers.push(
       await WebUser.findOne({
@@ -89,7 +86,6 @@ console.log(req.body.data)
         username: username,
       })
     );
-
   } catch (err) {
     const error = new HttpError(
       "Signing up failed, please try again later.",
@@ -99,9 +95,9 @@ console.log(req.body.data)
   }
 
   existingUsers = existingUsers.filter((item) => item !== null);
-  console.log(username)
-  console.log(existingUsers)
-  if (existingUsers.length>0) {
+  console.log(username);
+  console.log(existingUsers);
+  if (existingUsers.length > 0) {
     // console.log(existingUsers)
     const error = new HttpError(
       "Email or username already exist already, please try again.",
@@ -109,18 +105,15 @@ console.log(req.body.data)
     );
     return next(error);
   }
-  console.log('2')
+  console.log("2");
 
   let createdUser;
   let hashedPassword;
 
-
   try {
     hashedPassword = await bcrypt.hash(password, 12);
-  }
-
-  catch (err) {
-    console.log(err)
+  } catch (err) {
+    console.log(err);
     const error = new HttpError(
       "Could not create user, please try again.",
       500
@@ -128,7 +121,7 @@ console.log(req.body.data)
     return next(error);
   }
 
-  console.log('3')
+  console.log("3");
 
   try {
     createdUser = new WebUser({
@@ -148,8 +141,7 @@ console.log(req.body.data)
       iadsMember,
       iadsPosition,
       iadsEmail,
-      validation: false
-
+      validation: false,
     });
     await createdUser.save();
   } catch (err) {
@@ -157,24 +149,25 @@ console.log(req.body.data)
     return next(error);
   }
 
-  console.log('4')
-
+  console.log("4");
 
   let token;
   try {
-    token = jwt.sign({ userId: createdUser.id }, 'ia_65412654_ajbsc7qwe_ds', { expiresIn: '1d' });
+    token = jwt.sign({ userId: createdUser.id }, "ia_65412654_ajbsc7qwe_ds", {
+      expiresIn: "1d",
+    });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     const error = new HttpError("Creating user failed, please try again.", 500);
     return next(error);
   }
-  console.log('5')
+  console.log("5");
 
   res.status(201).json({ user: createdUser, token: token });
 });
 
 router.post("/login", async (req, res, next) => {
-  let { username, password } = req.body;
+  let { username, password } = req.body.data;
   username = username.toLowerCase();
   let existingUser;
 
@@ -182,8 +175,6 @@ router.post("/login", async (req, res, next) => {
     existingUser = await WebUser.findOne({
       username: username,
     });
-
-
   } catch (err) {
     const error = new HttpError(
       "Logging in failed, please try again later.",
@@ -200,7 +191,6 @@ router.post("/login", async (req, res, next) => {
     return next(error);
   }
 
-
   try {
     let isValidPassword = await bcrypt.compare(password, existingUser.password);
 
@@ -212,7 +202,6 @@ router.post("/login", async (req, res, next) => {
       return next(error);
     }
 
-
     if (!existingUser.validation) {
       const error = new HttpError(
         "Pending approval, could not log you in.",
@@ -220,36 +209,28 @@ router.post("/login", async (req, res, next) => {
       );
       return next(error);
     }
-    
-  }
-
-  catch (err) {
-    const error = new HttpError(
-      "Could not log you in, please try again.",
-      500
-    );
-    console.log(err)
+  } catch (err) {
+    const error = new HttpError("Could not log you in, please try again.", 500);
+    console.log(err);
     return next(error);
   }
 
-
-
   let token;
   try {
-    token = jwt.sign({ userId: existingUser._id }, 'ia_65412654_ajbsc7qwe_ds', { expiresIn: '1d' });
-    console.log(token)
+    token = jwt.sign({ userId: existingUser._id }, "ia_65412654_ajbsc7qwe_ds", {
+      expiresIn: "1d",
+    });
+    console.log(token);
   } catch (err) {
-    const error = new HttpError("Could not log you in, please try again.1", 500);
-    console.log(err)
+    const error = new HttpError(
+      "Could not log you in, please try again.1",
+      500
+    );
+    console.log(err);
     return next(error);
   }
 
   res.status(201).json({ user: existingUser, token: token });
-
-
 });
-
-
-
 
 module.exports = router;
