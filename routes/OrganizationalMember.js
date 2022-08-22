@@ -27,7 +27,7 @@ router.post("/create", async (req, res, next) => {
 
         numOfMemberSchools,
         namesOfMemberSchools,
-        numOfMemberSstudents,
+        numOfMemberStudents,
 
         requestedMembershipType,
         president,
@@ -41,7 +41,9 @@ router.post("/create", async (req, res, next) => {
         delegate1,
         delegate2
 
-    } = req.body.data;
+    } = req.body;
+
+    console.log(req.body)
 
 
     // try {
@@ -119,7 +121,7 @@ router.post("/create", async (req, res, next) => {
 
             numOfMemberSchools,
             namesOfMemberSchools,
-            numOfMemberSstudents,
+            numOfMemberStudents,
 
             requestedMembershipType,
             president,
@@ -138,6 +140,7 @@ router.post("/create", async (req, res, next) => {
         });
         await createdMember.save();
     } catch (err) {
+        console.log(err)
         const error = new HttpError("Creating member failed, please try again.", 500);
         return next(error);
     }
