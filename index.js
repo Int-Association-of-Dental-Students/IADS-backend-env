@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 
 const routes = require("./routes/routes");
 const webUserRoutes = require("./routes/Users/WebUser");
+const orgMemberRoutes = require("./routes/OrganizationalMember");
 const PublicationRoute = require("./routes/Committees/SCORE/PublicationsRoute");
 
 const app = express();
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 
 app.use("/api", routes);
 app.use("/api/WebUsers", webUserRoutes);
+app.use("/api/orgmember", orgMemberRoutes);
 
 
 app.use((req, res, next) => {
