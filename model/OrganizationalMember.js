@@ -16,8 +16,8 @@ const orgMemberSchema = new Schema({
   dateOfEstablishment: { type: Date, required: true },
 
   numOfMemberSchools: { type: Number, required: true },
-  namesOfMemberSchools: { type: String, required: true },
-  numOfMemberSstudents: { type: Number, required: true },
+  namesOfMemberSchools: { type: String },
+  numOfMemberStudents: { type: Number, required: true },
 
   requestedMembershipType: { type: String, required: true },
 
@@ -29,7 +29,7 @@ const orgMemberSchema = new Schema({
   scientificOfficer: { name: { type: String, required: true }, email: { type: String, required: true } },
   trainingOfficer: { name: { type: String, required: true }, email: { type: String, required: true } },
   voluntaryOfficer: { name: { type: String, required: true }, email: { type: String, required: true } },
-  delegate1: { phoneNumber: { type: String, required: true }, whatsapp: { type: String, required: true } },
+  delegate1: { email:{type: String, required: true}, phoneNumber: { type: String, required: true }, whatsapp: { type: String, required: true } },
   delegate2: { name: { type: String, required: true }, email: { type: String, required: true }, phoneNumber: { type: String, required: true }, whatsapp: { type: String, required: true } },
 
   validation: { type: Boolean }
