@@ -23,18 +23,15 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use("/api", routes);
 app.use("/api/WebUsers", webUserRoutes);
 app.use("/api/orgmember", orgMemberRoutes);
-
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
   console.log(error);
   throw error;
 });
-
 
 app.use((error, req, res, next) => {
   if (req.file) {
@@ -49,12 +46,11 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
-
 mongoose
-  .connect(
-    process.env.DATABASE_URI,
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(process.env.DATABASE_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     app.listen(3001, () => {
       console.log("Server Started");
@@ -88,7 +84,7 @@ mongoose
 //     app.use(express.json());
 //     app.use("/api", routes);
 //     app.use("/api/WebUsers", webUserRoutes);
-    
+
 //     app.use("/api", PublicationRoute);
 //   } catch (err) {
 //     console.log(err);

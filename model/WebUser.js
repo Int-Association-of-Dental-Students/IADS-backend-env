@@ -19,10 +19,10 @@ const WebUserSchema = new Schema({
   iadsMember: Boolean,
   iadsPosition: String,
   iadsEmail: String,
-  validation: Boolean
-
+  validation: Boolean,
+  editor: Boolean,
+  admin: Boolean,
 });
-
 
 //vendor: { type: mongoose.Types.ObjectId, ref: "Vendor" },
 

@@ -71,6 +71,7 @@ router.post("/signup", async (req, res, next) => {
 
   if (iadsEmail) iadsEmail = iadsEmail.toLowerCase();
   if (email) email = email.toLowerCase();
+  if (username) username = username.toLowerCase();
 
   let existingUsers = [];
   console.log("1");
@@ -142,6 +143,8 @@ router.post("/signup", async (req, res, next) => {
       iadsPosition,
       iadsEmail,
       validation: false,
+      editor: false,
+      admin: false,
     });
     await createdUser.save();
   } catch (err) {
@@ -162,15 +165,25 @@ router.post("/signup", async (req, res, next) => {
     return next(error);
   }
   console.log("5");
+  let user = {
+    id: createdUser.id,
+    username: createdUser.username,
+    name: createdUser.fullName,
+    validation: createdUser.validation,
+    email: createdUser.email,
+    editor: createdUser.editor,
+    admin: createdUser.admin,
+  };
 
-  res.status(201).json({ user: createdUser, token: token });
+  res.status(201).json({ user: user, token: token });
 });
 
 router.post("/login", async (req, res, next) => {
   let { username, password } = req.body.data;
   username = username.toLowerCase();
   let existingUser;
-
+  console.log(req.body);
+  console.log(username);
   try {
     existingUser = await WebUser.findOne({
       username: username,
@@ -182,6 +195,7 @@ router.post("/login", async (req, res, next) => {
     );
     return next(error);
   }
+  console.log(existingUser);
 
   if (!existingUser) {
     const error = new HttpError(
@@ -204,7 +218,7 @@ router.post("/login", async (req, res, next) => {
 
     if (!existingUser.validation) {
       const error = new HttpError(
-        "Pending approval, could not log you in.",
+        "Pending approval, could not log you in. Please contact vpia@iads-web.org",
         401
       );
       return next(error);
@@ -229,8 +243,16 @@ router.post("/login", async (req, res, next) => {
     console.log(err);
     return next(error);
   }
-
-  res.status(201).json({ user: existingUser, token: token });
+  let user = {
+    id: existingUser.id,
+    username: existingUser.username,
+    name: existingUser.fullName,
+    validation: existingUser.validation,
+    email: existingUser.email,
+    editor: existingUser.editor,
+    admin: existingUser.admin,
+  };
+  res.status(201).json({ user: user, token: token });
 });
 
 module.exports = router;
