@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const routes = require("./routes/routes");
 const webUserRoutes = require("./routes/Users/WebUser");
 const orgMemberRoutes = require("./routes/OrganizationalMember");
+const cardRoutes = require("./routes/Card");
 const PublicationRoute = require("./routes/Committees/SCORE/PublicationsRoute");
 
 const app = express();
@@ -26,6 +27,8 @@ app.use((req, res, next) => {
 app.use("/api", routes);
 app.use("/api/WebUsers", webUserRoutes);
 app.use("/api/orgmember", orgMemberRoutes);
+app.use("/api/card", cardRoutes);
+
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
