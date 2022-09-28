@@ -255,4 +255,44 @@ router.post("/login", async (req, res, next) => {
   res.status(201).json({ user: user, token: token });
 });
 
+router.use(checkAuth);
+
+router.post("/updateVerification/:id", async (req, res, next) => {
+  const id = req.params.type;
+
+  let existingUser;
+  try {
+    existingUser = await WebUser.findById(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Updating user failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  if (!existingUser) {
+    const error = new HttpError(
+      "User does not exist",
+      401
+    );
+    return next(error);
+  }
+
+  try {
+
+    existingUser.validation = true;
+    await createdUser.save();
+  } catch (err) {
+    const error = new HttpError("Could not update user, please try again.", 500);
+    console.log(err);
+    return next(error);
+  }
+
+
+  res.status(201).json({ user: existingUser, token: token });
+});
+
+
+
 module.exports = router;
