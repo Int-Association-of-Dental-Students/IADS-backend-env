@@ -257,8 +257,9 @@ router.post("/login", async (req, res, next) => {
 
 router.use(checkAuth);
 
-router.post("/updateVerification/:id", async (req, res, next) => {
-  const id = req.params.type;
+router.post("/updateVerification/:id/:bool", async (req, res, next) => {
+  const id = req.params.id;
+  const bool = req.params.bool;
 
   let existingUser;
   try {
@@ -280,8 +281,16 @@ router.post("/updateVerification/:id", async (req, res, next) => {
   }
 
   try {
-
-    existingUser.validation = true;
+    if (bool == true) {
+      existingUser.validation = true;
+    }
+    else if (bool == false) {
+      existingUser.validation = false;
+    }
+    else {
+      const error = new HttpError("Could not update user, please try again.", 500);
+      return next(error);
+    }
     await createdUser.save();
   } catch (err) {
     const error = new HttpError("Could not update user, please try again.", 500);
