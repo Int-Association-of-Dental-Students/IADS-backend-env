@@ -29,7 +29,6 @@ app.use("/api/WebUsers", webUserRoutes);
 app.use("/api/orgmember", orgMemberRoutes);
 app.use("/api/card", cardRoutes);
 
-
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
   console.log(error);
@@ -55,8 +54,8 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(process.env.PORT  || 3001, () => {
-      console.log("Server Started");
+    app.listen(process.env.PORT || 3001, () => {
+      console.log("Server Startedd");
     });
   })
   .catch((err) => {

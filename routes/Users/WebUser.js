@@ -255,11 +255,13 @@ router.post("/login", async (req, res, next) => {
   res.status(201).json({ user: user, token: token });
 });
 
-router.use(checkAuth);
+// router.use(checkAuth);
 
 router.post("/updateVerification/:id/:bool", async (req, res, next) => {
   const id = req.params.id;
   const bool = req.params.bool;
+  console.log(id);
+  console.log(bool);
 
   let existingUser;
   try {
@@ -273,35 +275,37 @@ router.post("/updateVerification/:id/:bool", async (req, res, next) => {
   }
 
   if (!existingUser) {
-    const error = new HttpError(
-      "User does not exist",
-      401
-    );
+    const error = new HttpError("User does not exist", 401);
     return next(error);
   }
 
   try {
-    if (bool == true) {
+    if (bool == "true") {
       existingUser.validation = true;
-    }
-    else if (bool == false) {
+    } else if (bool == "false") {
       existingUser.validation = false;
-    }
-    else {
-      const error = new HttpError("Could not update user, please try again.", 500);
+    } else {
+      console.log(bool);
+      const error = new HttpError(
+        "Could not update user, please try again.",
+        500
+      );
       return next(error);
     }
-    await createdUser.save();
+    console.log(existingUser);
+    await existingUser.save();
   } catch (err) {
-    const error = new HttpError("Could not update user, please try again.", 500);
+    console.log("error");
+    const error = new HttpError(
+      "Could not update user, please try again.",
+      500
+    );
     console.log(err);
     return next(error);
   }
+  console.log("existingUser");
 
-
-  res.status(201).json({ user: existingUser, token: token });
+  res.status(201).json({ user: existingUser });
 });
-
-
 
 module.exports = router;
