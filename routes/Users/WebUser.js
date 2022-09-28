@@ -5,7 +5,6 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const HttpError = require("../../middleware/http-error");
-const checkAuth = require("../../middleware/check-auth");
 
 // Get all web users
 router.get("/", async (req, res) => {
@@ -255,8 +254,6 @@ router.post("/login", async (req, res, next) => {
   res.status(201).json({ user: user, token: token });
 });
 
-// router.use(checkAuth);
-
 router.post("/updateVerification/:id/:bool", async (req, res, next) => {
   const id = req.params.id;
   const bool = req.params.bool;
@@ -284,6 +281,56 @@ router.post("/updateVerification/:id/:bool", async (req, res, next) => {
       existingUser.validation = true;
     } else if (bool == "false") {
       existingUser.validation = false;
+    } else {
+      console.log(bool);
+      const error = new HttpError(
+        "Could not update user, please try again.",
+        500
+      );
+      return next(error);
+    }
+    console.log(existingUser);
+    await existingUser.save();
+  } catch (err) {
+    console.log("error");
+    const error = new HttpError(
+      "Could not update user, please try again.",
+      500
+    );
+    console.log(err);
+    return next(error);
+  }
+  console.log("existingUser");
+
+  res.status(201).json({ user: existingUser });
+});
+router.post("/updateEditting/:id/:bool", async (req, res, next) => {
+  const id = req.params.id;
+  const bool = req.params.bool;
+  console.log(id);
+  console.log(bool);
+
+  let existingUser;
+  try {
+    existingUser = await WebUser.findById(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Updating user failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  if (!existingUser) {
+    const error = new HttpError("User does not exist", 401);
+    return next(error);
+  }
+
+  try {
+    if (bool == "true") {
+      existingUser.editor = true;
+    } else if (bool == "false") {
+      existingUser.editor = false;
     } else {
       console.log(bool);
       const error = new HttpError(
