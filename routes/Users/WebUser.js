@@ -275,6 +275,7 @@ router.post("/updateVerification/:id/:bool", async (req, res, next) => {
     const error = new HttpError("User does not exist", 401);
     return next(error);
   }
+});
 
 router.post("/deleteUser/:id", async (req, res, next) => {
   const id = req.params.id;
@@ -283,7 +284,7 @@ router.post("/deleteUser/:id", async (req, res, next) => {
 
   let existingUser;
   try {
-    existingUser = await WebUser.remove({_id:id});
+    existingUser = await WebUser.remove({ _id: id });
   } catch (err) {
     const error = new HttpError(
       "Deleting user failed, please try again later.",
@@ -297,7 +298,6 @@ router.post("/deleteUser/:id", async (req, res, next) => {
     return next(error);
   }
 
-  
   res.status(201).json({ user: existingUser });
 });
 
