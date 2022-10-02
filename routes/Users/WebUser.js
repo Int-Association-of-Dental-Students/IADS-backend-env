@@ -282,9 +282,8 @@ router.post("/deleteUser/:id", async (req, res, next) => {
   console.log(id);
   console.log(bool);
 
-  let existingUser;
   try {
-    existingUser = await WebUser.remove({ _id: id });
+    await WebUser.removeById(id);
   } catch (err) {
     const error = new HttpError(
       "Deleting user failed, please try again later.",
@@ -293,12 +292,7 @@ router.post("/deleteUser/:id", async (req, res, next) => {
     return next(error);
   }
 
-  if (!existingUser) {
-    const error = new HttpError("User does not exist", 401);
-    return next(error);
-  }
-
-  res.status(201).json({ user: existingUser });
+  res.status(201);
 });
 
 router.post("/updateEditting/:id/:bool", async (req, res, next) => {
