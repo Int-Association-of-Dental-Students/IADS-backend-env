@@ -305,23 +305,23 @@ router.post("/updateVerification/:id/:bool", async (req, res, next) => {
   res.status(201).json({ user: existingUser });
 });
 
-router.post("/deleteUser/:id", async (req, res, next) => {
-  const id = req.params.id;
-  console.log(id);
-  console.log(bool);
+// router.post("/deleteUser/:id", async (req, res, next) => {
+//   const id = req.params.id;
+//   console.log(id);
+//   console.log(bool);
 
-  try {
-    await WebUser.findByIdAndDelete(id);
-  } catch (err) {
-    const error = new HttpError(
-      "Deleting user failed, please try again later.",
-      500
-    );
-    return next(error);
-  }
+//   try {
+//     await WebUser.findByIdAndDelete(id);
+//   } catch (err) {
+//     const error = new HttpError(
+//       "Deleting user failed, please try again later.",
+//       500
+//     );
+//     return next(error);
+//   }
 
-  res.status(201);
-});
+//   res.status(201);
+// });
 
 router.post("/updateEditting/:id/:bool", async (req, res, next) => {
   const id = req.params.id;
