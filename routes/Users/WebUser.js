@@ -283,7 +283,7 @@ router.post("/deleteUser/:id", async (req, res, next) => {
   console.log(bool);
 
   try {
-    await WebUser.removeById(id);
+    await WebUser.findByIdAndDelete(id);
   } catch (err) {
     const error = new HttpError(
       "Deleting user failed, please try again later.",
