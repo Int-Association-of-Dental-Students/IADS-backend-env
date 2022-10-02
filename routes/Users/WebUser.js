@@ -322,7 +322,6 @@ router.post("/updateVerification/:id/:bool", async (req, res, next) => {
 
 //   res.status(201);
 // });
-
 router.post("/updateEditting/:id/:bool", async (req, res, next) => {
   const id = req.params.id;
   const bool = req.params.bool;
