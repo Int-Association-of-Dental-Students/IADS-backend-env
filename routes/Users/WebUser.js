@@ -275,25 +275,53 @@ router.post("/updateVerification/:id/:bool", async (req, res, next) => {
     const error = new HttpError("User does not exist", 401);
     return next(error);
   }
+
+  try {
+    if (bool == "true") {
+      existingUser.validation = true;
+    } else if (bool == "false") {
+      existingUser.validation = false;
+    } else {
+      console.log(bool);
+      const error = new HttpError(
+        "Could not update user, please try again.",
+        500
+      );
+      return next(error);
+    }
+    console.log(existingUser);
+    await existingUser.save();
+  } catch (err) {
+    console.log("error");
+    const error = new HttpError(
+      "Could not update user, please try again.",
+      500
+    );
+    console.log(err);
+    return next(error);
+  }
+  console.log("existingUser");
+
+  res.status(201).json({ user: existingUser });
 });
 
-// router.post("/deleteUser/:id", async (req, res, next) => {
-//   const id = req.params.id;
-//   console.log(id);
-//   console.log(bool);
+router.post("/deleteUser/:id", async (req, res, next) => {
+  const id = req.params.id;
+  console.log(id);
+  console.log(bool);
 
-//   try {
-//     await WebUser.findByIdAndDelete(id);
-//   } catch (err) {
-//     const error = new HttpError(
-//       "Deleting user failed, please try again later.",
-//       500
-//     );
-//     return next(error);
-//   }
+  try {
+    await WebUser.findByIdAndDelete(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Deleting user failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
 
-//   res.status(201);
-// });
+  res.status(201);
+});
 
 router.post("/updateEditting/:id/:bool", async (req, res, next) => {
   const id = req.params.id;
