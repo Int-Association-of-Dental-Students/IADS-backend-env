@@ -12,7 +12,7 @@ const WebUserSchema = new Schema({
 
   uni: String,
   association: String,
-  yearsOfStudy: Number,
+  yearsOfStudy: String,
   delegate: String,
   gradYear: Number,
   iadsEmployed: String,
