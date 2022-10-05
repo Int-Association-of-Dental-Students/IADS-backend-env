@@ -307,7 +307,7 @@ router.post("/updateVerification/:id/:bool", async (req, res, next) => {
 
 router.post("/deleteUser/:id", async (req, res, next) => {
   const id = req.params.id;
-  console.log(id);
+  // console.log(id);
 
   try {
     await WebUser.findByIdAndDelete(id);
