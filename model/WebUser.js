@@ -11,7 +11,7 @@ const WebUserSchema = new Schema({
   password: String,
 
   uni: String,
-  association: String,
+  associations: String,
   yearsOfStudy: String,
   delegate: String,
   gradYear: Number,
