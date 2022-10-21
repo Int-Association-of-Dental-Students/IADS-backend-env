@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
       phone: req.body.phone,
 
       uni: req.body.uni,
-      association: req.body.association,
+      associations: req.body.associations,
       yearsOfStudy: req.body.yearsOfStudy,
 
       //bool
@@ -58,7 +58,7 @@ router.post("/signup", async (req, res, next) => {
     phone,
     password,
     uni,
-    association,
+    associations,
     yearsOfStudy,
     delegate,
     gradYear,
@@ -133,7 +133,7 @@ router.post("/signup", async (req, res, next) => {
       country,
       phone,
       uni,
-      association,
+      associations,
       yearsOfStudy,
       delegate,
       gradYear,
