@@ -11,12 +11,16 @@ const personalMemberSchema = new Schema({
   university: { type: String, required: true },
   phoneNumber: { type: Number, required: true },
   whatsappNumber: { type: Number },
-  faceBook: { type: Number },
+  faceBook: { type: String },
+  email: { type: String },
   howHeard: { type: String },
   yearOfGraduation: { type: Number, required: true },
 
-  validation: { type: Boolean }
+  validation: { type: Boolean },
 
+  curriculum: { type: String },
+  motivational: { type: String },
+  studentship: { type: String },
 
 
 });

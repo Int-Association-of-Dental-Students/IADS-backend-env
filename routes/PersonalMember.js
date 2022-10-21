@@ -24,6 +24,7 @@ router.post("/create", async (req, res, next) => {
         phoneNumber,
         whatsappNumber,
         faceBook,
+        email,
         yearOfGraduation,
 
         howHeard
@@ -100,12 +101,12 @@ router.post("/create", async (req, res, next) => {
             city,
             address,
             postalCode,
-    
+            email,
             phoneNumber,
             whatsappNumber,
             faceBook,
             yearOfGraduation,
-    
+
             howHeard
 
         });
