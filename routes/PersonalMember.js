@@ -26,6 +26,9 @@ router.post("/create", async (req, res, next) => {
 
     howHeard,
     validation,
+    curriculum,
+    motivational,
+    studentship,
   } = req.body.data;
 
   console.log(req.body.data);
@@ -102,6 +105,9 @@ router.post("/create", async (req, res, next) => {
 
       howHeard,
       validation: false,
+      curriculum,
+      motivational,
+      studentship,
     });
     await createdMember.save();
   } catch (err) {
