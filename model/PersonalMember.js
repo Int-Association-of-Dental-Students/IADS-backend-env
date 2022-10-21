@@ -14,15 +14,13 @@ const personalMemberSchema = new Schema({
   faceBook: { type: String },
   email: { type: String },
   howHeard: { type: String },
-  yearOfGraduation: { type: Number, required: true },
+  yearOfGraduation: { type: Number },
 
   validation: { type: Boolean },
 
   curriculum: { type: String },
   motivational: { type: String },
   studentship: { type: String },
-
-
 });
 
 module.exports = mongoose.model("PersonalMember", personalMemberSchema);
