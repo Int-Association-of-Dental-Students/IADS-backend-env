@@ -10,7 +10,10 @@ const orgMemberSchema = new Schema({
   address: { type: String, required: true },
   postalCode: { type: Number, required: true },
   faxNumber: { type: Number, required: true },
-  phone: { code: { type: String, required: true }, number: { type: Number, required: true } },
+  phone: {
+    // code: { type: String, required: true },
+    number: { type: Number, required: true },
+  },
 
   website: { type: String, required: true },
   dateOfEstablishment: { type: Date, required: true },
@@ -21,22 +24,57 @@ const orgMemberSchema = new Schema({
 
   requestedMembershipType: { type: String, required: true },
 
-  president: { name: { type: String, required: true }, email: { type: String, required: true } },
-  secretary: { name: { type: String, required: true }, email: { type: String, required: true } },
-  treasurer: { name: { type: String, required: true }, email: { type: String, required: true } },
-  editor: { name: { type: String, required: true }, email: { type: String, required: true } },
-  exchangeOfficer: { name: { type: String, required: true }, email: { type: String, required: true } },
-  scientificOfficer: { name: { type: String, required: true }, email: { type: String, required: true } },
-  trainingOfficer: { name: { type: String, required: true }, email: { type: String, required: true } },
-  voluntaryOfficer: { name: { type: String, required: true }, email: { type: String, required: true } },
-  delegate1: { email:{type: String, required: true}, phoneNumber: { type: String, required: true }, whatsapp: { type: String, required: true } },
-  delegate2: { name: { type: String, required: true }, email: { type: String, required: true }, phoneNumber: { type: String, required: true }, whatsapp: { type: String, required: true } },
+  president: {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+  },
+  secretary: {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+  },
+  treasurer: {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+  },
+  editor: {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+  },
+  exchangeOfficer: {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+  },
+  scientificOfficer: {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+  },
+  trainingOfficer: {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+  },
+  voluntaryOfficer: {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+  },
+  delegate1: {
+    email: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
+    whatsapp: { type: String, required: true },
+  },
+  delegate2: {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
+    whatsapp: { type: String, required: true },
+  },
 
-  validation: { type: Boolean }
+  validation: { type: Boolean },
+
+  letter: { type: String, required: true },
+  logo: { type: String, required: true },
+  flag: { type: String, required: true },
 
   // delegate1: { type: mongoose.Types.ObjectId, ref: "WebUser" },
-
-
 });
 
 module.exports = mongoose.model("OrgMember", orgMemberSchema);
