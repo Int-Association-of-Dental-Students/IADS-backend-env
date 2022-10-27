@@ -154,4 +154,74 @@ router.post("/create", async (req, res, next) => {
   res.status(201).json({ member: createdMember });
 });
 
+// Update org member verification
+router.post("/updateVerification/:id/:bool", async (req, res, next) => {
+  const id = req.params.id;
+  const bool = req.params.bool;
+  console.log(id);
+  console.log(bool);
+
+  let existingOrgMember;
+  try {
+    existingOrgMember = await OrgMember.findById(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Updating org member failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  if (!existingOrgMember) {
+    const error = new HttpError("OrgMember does not exist", 401);
+    return next(error);
+  }
+
+  try {
+    if (bool == "true") {
+      existingOrgMember.validation = true;
+    } else if (bool == "false") {
+      existingOrgMember.validation = false;
+    } else {
+      console.log(bool);
+      const error = new HttpError(
+        "Could not update user, please try again.",
+        500
+      );
+      return next(error);
+    }
+    console.log(existingOrgMember);
+    await existingOrgMember.save();
+  } catch (err) {
+    console.log("error");
+    const error = new HttpError(
+      "Could not update member, please try again.",
+      500
+    );
+    console.log(err);
+    return next(error);
+  }
+  console.log("existingOrgMember");
+
+  res.status(201).json({ user: existingOrgMember });
+});
+
+// Delete Org Member
+router.post("/deleteMember/:id", async (req, res, next) => {
+  const id = req.params.id;
+  // console.log(id);
+
+  try {
+    await OrgMember.findByIdAndDelete(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Deleting member failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(201);
+});
+
 module.exports = router;
