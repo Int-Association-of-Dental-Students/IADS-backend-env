@@ -23,6 +23,7 @@ const orgMemberSchema = new Schema({
   numOfMemberStudents: { type: Number, required: true },
 
   requestedMembershipType: { type: String, required: true },
+  listOfSchools: { type: String, required: true },
 
   president: {
     name: { type: String, required: true },
@@ -57,6 +58,7 @@ const orgMemberSchema = new Schema({
     email: { type: String, required: true },
   },
   delegate1: {
+    name: { type: String, required: true },
     email: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     whatsapp: { type: String, required: true },

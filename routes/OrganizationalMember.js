@@ -32,6 +32,7 @@ router.post("/create", async (req, res, next) => {
     numOfMemberSchools,
     namesOfMemberSchools,
     numOfMemberStudents,
+    listOfSchools,
 
     requestedMembershipType,
     president,
@@ -123,6 +124,7 @@ router.post("/create", async (req, res, next) => {
       numOfMemberSchools,
       namesOfMemberSchools,
       numOfMemberStudents,
+      listOfSchools,
 
       requestedMembershipType,
       president,
