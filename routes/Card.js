@@ -30,8 +30,8 @@ router.get("/:type", async (req, res, next) => {
 });
 
 router.post("/create", async (req, res, next) => {
-  console.log(req.body.data);
-  let { title, description, image, link, date, type } = req.body.data;
+  console.log(req.body);
+  let { title, description, image, link, date, type } = req.body;
 
   let existingCard;
   try {
