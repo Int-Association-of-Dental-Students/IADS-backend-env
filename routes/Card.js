@@ -10,14 +10,12 @@ const checkAuth = require("../middleware/check-auth");
 
 // Get all web users
 
-
-
 //getByType
 router.get("/:type", async (req, res, next) => {
   let cards;
   const type = req.params.type;
   try {
-    cards = await Card.find({ type: type })
+    cards = await Card.find({ type: type });
   } catch (err) {
     const error = new HttpError(
       "Fetching cards failed, please try again later.",
@@ -31,19 +29,9 @@ router.get("/:type", async (req, res, next) => {
   });
 });
 
-
 router.post("/create", async (req, res, next) => {
   console.log(req.body.data);
-  let {
-    title,
-    description,
-    image,
-    link,
-    date,
-    type,
-  } = req.body.data;
-
-
+  let { title, description, image, link, date, type } = req.body.data;
 
   let existingCard;
   try {
@@ -52,9 +40,7 @@ router.post("/create", async (req, res, next) => {
       link: link,
       date: date,
       type: type,
-    })
-
-
+    });
   } catch (err) {
     const error = new HttpError(
       "Creating card failed, please try again later.",
@@ -65,15 +51,10 @@ router.post("/create", async (req, res, next) => {
 
   if (existingCard) {
     // console.log(existingUsers)
-    const error = new HttpError(
-      "Card already exists, please try again.",
-      422
-    );
+    const error = new HttpError("Card already exists, please try again.", 422);
     return next(error);
   }
   console.log("2");
-
-
 
   try {
     createdCard = new Card({
@@ -90,11 +71,7 @@ router.post("/create", async (req, res, next) => {
     return next(error);
   }
 
-
-
-  res.status(201).json({ card: card});
+  res.status(201).json({ card: card });
 });
-
-
 
 module.exports = router;
