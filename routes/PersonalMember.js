@@ -14,6 +14,24 @@ router.get("/", async (req, res) => {
   res.send(personalmember);
 });
 
+// Delete Personal Member
+router.post("/deleteMember/:id", async (req, res, next) => {
+  const id = req.params.id;
+  // console.log(id);
+
+  try {
+    await PersonalMember.findByIdAndDelete(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Deleting member failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(201);
+});
+
 // Create a new personal member
 router.post("/create", async (req, res, next) => {
   let {
