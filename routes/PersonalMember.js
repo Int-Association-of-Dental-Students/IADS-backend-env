@@ -8,6 +8,13 @@ const jwt = require("jsonwebtoken");
 const HttpError = require("../middleware/http-error");
 const checkAuth = require("../middleware/check-auth");
 
+// Get all personal members
+router.get("/", async (req, res) => {
+  const personalmember = await PersonalMember.find();
+  res.send(personalmember);
+});
+
+// Create a new personal member
 router.post("/create", async (req, res, next) => {
   let {
     fullname,

@@ -42,6 +42,7 @@ router.post("/create", async (req, res, next) => {
       type: type,
     });
   } catch (err) {
+    console.log(err);
     const error = new HttpError(
       "Creating card failed, please try again later.",
       500
@@ -67,6 +68,7 @@ router.post("/create", async (req, res, next) => {
     });
     await createdCard.save();
   } catch (err) {
+    console.log(err);
     const error = new HttpError("Creating card failed, please try again.", 500);
     return next(error);
   }

@@ -31,7 +31,10 @@ const cardSchema = new Schema({
     type: String,
     required: true,
   },
-
+  apply: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("Card", cardSchema);
