@@ -23,6 +23,7 @@ const WebUserSchema = new Schema({
   editor: Boolean,
   admin: Boolean,
 });
+//
 
 //vendor: { type: mongoose.Types.ObjectId, ref: "Vendor" },
 
