@@ -24,7 +24,7 @@ const WebUserSchema = new Schema({
   admin: Boolean,
 });
 //
-
+//
 //vendor: { type: mongoose.Types.ObjectId, ref: "Vendor" },
 
 module.exports = mongoose.model("WebUser", WebUserSchema);
