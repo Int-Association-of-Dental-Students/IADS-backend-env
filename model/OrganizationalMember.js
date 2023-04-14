@@ -29,6 +29,7 @@ const orgMemberSchema = new Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
   },
+
   secretary: {
     name: { type: String, required: true },
     email: { type: String, required: true },
@@ -38,6 +39,10 @@ const orgMemberSchema = new Schema({
     email: { type: String, required: true },
   },
   editor: {
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+  },
+  publicHealthOfficer: {
     name: { type: String, required: true },
     email: { type: String, required: true },
   },

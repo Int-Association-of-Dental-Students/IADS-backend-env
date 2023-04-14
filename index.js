@@ -13,6 +13,7 @@ const PublicationRoute = require("./routes/Committees/SCORE/PublicationsRoute");
 
 const app = express();
 //
+
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
