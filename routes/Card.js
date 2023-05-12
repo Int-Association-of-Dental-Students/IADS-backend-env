@@ -76,4 +76,20 @@ router.post("/create", async (req, res, next) => {
   res.status(201).json({ card: card });
 });
 
+router.post("/delete/:id", async (req, res, next) => {
+  const id = req.params.id;
+
+  try {
+    await Card.findByIdAndDelete(id);
+  } catch (err) {
+    const error = new HttpError(
+      "Deleting post failed, please try again later.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(201);
+});
+
 module.exports = router;
