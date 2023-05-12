@@ -69,10 +69,10 @@ const orgMemberSchema = new Schema({
     whatsapp: { type: String, required: true },
   },
   delegate2: {
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    phoneNumber: { type: String, required: true },
-    whatsapp: { type: String, required: true },
+    name: { type: String, required: false },
+    email: { type: String, required: false },
+    phoneNumber: { type: String, required: false },
+    whatsapp: { type: String, required: false },
   },
 
   validation: { type: Boolean },
