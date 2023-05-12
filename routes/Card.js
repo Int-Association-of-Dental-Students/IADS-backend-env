@@ -86,7 +86,6 @@ router.post("/delete/:id", async (req, res, next) => {
       "Deleting post failed, please try again later.",
       500
     );
-    return next(error);
   }
 
   res.status(201);
