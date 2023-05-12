@@ -73,7 +73,7 @@ router.post("/create", async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ card: card });
+  res.status(201).json({ card: createdCard });
 });
 
 router.post("/delete/:id", async (req, res, next) => {
