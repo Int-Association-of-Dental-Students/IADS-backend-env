@@ -9,13 +9,13 @@ const orgMemberSchema = new Schema({
   city: { type: String, required: true },
   address: { type: String, required: true },
   postalCode: { type: Number, required: true },
-  faxNumber: { type: Number, required: true },
+  faxNumber: { type: Number, required: false },
   phone: {
     // code: { type: String, required: true },
     number: { type: Number, required: true },
   },
 
-  website: { type: String, required: true },
+  website: { type: String, required: false },
   dateOfEstablishment: { type: Date, required: true },
 
   numOfMemberSchools: { type: Number, required: true },
