@@ -1,6 +1,8 @@
 # ☕️ IADS Web Application Backend
 
-Welcome to the **IADS Web Application Backend** GitHub repository! This repository is the central hub for the backend of the main web application of IADS. Here, we maintain two branches for development and production (live). This README will guide you through the branch structure and how to work with this repository to add, modify, and edit IADS Web Application's API endpoint.
+Welcome to the **IADS Web Application Backend** GitHub repository! This repository is the central hub for the backend of the main web application of IADS. Here, we maintain two branches for development and production (live). This README will guide you through the branch structure and how to work with this repository to add, modify, and edit IADS Web Application's API endpoints.
+
+The documentation of the APIs can be found <a href="https://documenter.getpostman.com/view/17300405/2s9YsDiuD2">HERE</a>
 
 ## Branch Structure
 - 🚀 **main**: The production branch for the main site.
