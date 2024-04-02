@@ -73,7 +73,7 @@ mongoose
     console.log(err);
   });
 
-// Connect to MongoDB
+// Connect to MongoDB_
 // const connectDB = async () => {
 //   try {
 //     await mongoose.connect(process.env.DATABASE_URI, {
