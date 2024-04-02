@@ -60,10 +60,13 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(process.env.DATABASE_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://iads:bXahy9tKykICqpjm@iads-web.btxid.mongodb.net/Members?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     app.listen(process.env.PORT || 8080, () => {
       console.log("Server Startedd");
